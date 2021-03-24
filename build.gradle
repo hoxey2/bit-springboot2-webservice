@@ -27,8 +27,8 @@ repositories {
 
 dependencies {
 
-    testCompile('org.springframework.boot:spring-starter-web')
-    testCompile('org.springframework.boot:spring-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 test{
