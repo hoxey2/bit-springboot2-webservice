@@ -11,12 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor // 기본 생성자 메소드(파라먼트x)
 @Entity
 public class Posts extends BaseTimeEntity {
-
+    //private LocalDateTime createdDate;
     @Id // 글번호(primary-key)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 생성규칙 auto increment
     private Long id;
@@ -36,8 +37,8 @@ public class Posts extends BaseTimeEntity {
         this.author = author;
     }
 
-//    public void update(String title, String content) {
-//        this.title = title;
-//        this.content =content;
-//    }
+    public void update(String title, String content) {
+        this.title = title;
+        this.content =content;
+    }
 }

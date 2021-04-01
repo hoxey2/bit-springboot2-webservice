@@ -1,5 +1,6 @@
 package com.example.web.springboot.web.dto;
 
+import com.example.web.springboot.domain.posts.Posts;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -8,13 +9,13 @@ import java.time.LocalDateTime;
 public class PostsResponseDto {
     private Long id;
     private String title;
+    private String content;
     private String author;
-    private LocalDateTime modifiedDate;
 
-    public PostsListResponseDto(Posts entity) {
+    public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
+        this.content = entity.getContent();
         this.author = entity.getAuthor();
-        this.modifiedDate = entity.getModifiedDate();
     }
 }

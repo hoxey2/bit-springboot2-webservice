@@ -46,11 +46,11 @@ public class PostsRepositoryTest {
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
     }
-
+/*------------------------------------------------------------------*/
     @Test
     public void registBaseTimeEntity() {
         //given
-        LocalDateTime now  = LocalDateTime.of(2019, 6, 4, 0, 0, 0);
+        LocalDateTime now  = LocalDateTime.of(2021, 3, 25, 0, 0, 0);
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
@@ -58,7 +58,7 @@ public class PostsRepositoryTest {
                 .build());
 
         //when
-        List<Posts> postList = postsRepository.findAll();
+        List<Posts> postsList = postsRepository.findAll();
 
         //then
         Posts posts =postsList.get(0);

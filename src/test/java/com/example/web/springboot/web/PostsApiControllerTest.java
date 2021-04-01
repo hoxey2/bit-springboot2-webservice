@@ -1,10 +1,11 @@
 package com.example.web.springboot.web;
 
+import com.example.web.springboot.web.dto.PostsUpdateRequestDto;
 import  com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.web.springboot.domain.posts.Posts;
 import com.example.web.springboot.domain.posts.PostsRepository;
 import com.example.web.springboot.web.dto.PostsSaveRequestDto;
-//import com.example.web.springboot.web.dto.PostsUpdateRequestDto;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 // For MockMvc
@@ -85,4 +87,37 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
         }
+/*----------------------------------------------------------------------*/
+    @Test
+//    @WithMockUser(roles="User")
+    public void updatesPosts() throws Exception {
+        //given
+        Posts savedPosts = postsRepository.save(Posts.builder()
+            .title("title")
+            .content("content")
+            .author("author")
+            .build());
+
+        Long updateId = savedPosts.getId();
+        String expectedTitle = "title2";
+        String expectedContent = "content2";
+
+        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
+                .title(expectedTitle)
+                .content(expectedContent)
+                .build();
+
+        String url = "http://localhost:" + port + "api/v1/posts" + updateId;
+
+        //when
+        mvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(requestDto)))
+                .andExpect(status().isOk());
+
+        //then
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
+}

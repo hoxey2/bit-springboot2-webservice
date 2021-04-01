@@ -23,6 +23,6 @@ public class IndexCotrollerTest {
         String body = this.restTemplate.getForObject( "/", String.class);
 
         //then
-        assertThat(body).contains("Spring Boot Web");
+        assertThat(body).contains("Spring Boot Web Service");
     }
 }
